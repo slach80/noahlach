@@ -1435,6 +1435,9 @@
       border-radius: 2px;
       transition: all 0.25s;
     }
+    #nav.scrolled .nav-hamburger span {
+      background: #0f1a2e;
+    }
     .nav-mobile-menu {
       display: none;
       position: fixed;
@@ -2443,26 +2446,12 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   revealEls.forEach(el => observer.observe(el));
 
-  // Form submit (no backend — just UX feedback)
-  const form = document.querySelector('.contact-form');
-  const btn = form.querySelector('.form-submit');
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    btn.textContent = 'Message Sent ✓';
-    btn.style.background = '#4ade80';
-    btn.style.cursor = 'default';
-    setTimeout(() => {
-      btn.textContent = 'Send Message →';
-      btn.style.background = '';
-      btn.style.cursor = '';
-    }, 3000);
-  });
-
   // Hamburger menu
   const hamburger = document.getElementById('navHamburger');
   const mobileMenu = document.getElementById('navMobileMenu');
   if (hamburger && mobileMenu) {
-    hamburger.addEventListener('click', () => {
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
       mobileMenu.classList.toggle('open');
     });
     document.addEventListener('click', (e) => {
